@@ -1,7 +1,8 @@
 package Bot::BasicBot::Pluggable::Module::Trivia;
-
+use base 'Bot::BasicBot::Pluggable::Module';
 use warnings;
 use strict;
+
 
 =head1 NAME
 
