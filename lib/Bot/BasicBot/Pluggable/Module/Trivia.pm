@@ -179,7 +179,7 @@ sub hint_or_timeout {
         my $new_hint = $self->update_hint($game->{current_question});
         $self->say(
             channel => $game->{channel},
-            body    => $self->format_response('newhint', {},
+            body    => $self->format_response('hint', {},
                 {
                     question => $game->{current_question}{question},
                     hint     => $game->{current_question}{hint},
@@ -252,7 +252,7 @@ sub timeout_for_status {
     my ($self, $state) = @_;
 
     # TODO: do something more intelligent here
-    return 3;
+    return 6;
 }
 
 
