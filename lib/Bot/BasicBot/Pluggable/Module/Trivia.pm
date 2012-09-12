@@ -140,6 +140,7 @@ sub tick {
     game:
     for my $game (values %games) {
         my $timeout = $self->timeout_for_status($game->{status});
+        $game->{last_action} ||= time;
         next game if time - $game->{last_action} >= $timeout;
         
         # Map current state to method to call to progress
