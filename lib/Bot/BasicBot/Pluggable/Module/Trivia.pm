@@ -143,7 +143,6 @@ sub tick {
         $game->{last_action} ||= time;
         next game if time - $game->{last_action} <= $timeout;
 
-        warn "OK, time to take an action, current status $game->{status}";
         # Map current state to method to call to progress
         my $action = {
             noquestion => 'ask_question',
@@ -219,13 +218,22 @@ sub update_hint {
         $question->{hint} = $question->{answer};
         $question->{hint} =~ s/\w/?/g;
     }
-    my @hintchars = split //, $question->{hint};
-    while (grep { $_ eq '?' } @hintchars) {
-        my $charpos = rand length $question->{hint};
-        next if $hintchars[$charpos] eq '?';
 
-        $hintchars[$charpos] = (split //, $question->{question})[$charpos];
+    # If no question marks remain, we can't give another hint
+    # TODO: maybe don't allow the whole thing to be revealed
+    return unless $question->{hint} =~ /\?/;
+
+    # Pick a random position, try again until we hit one that isn't a
+    # questionmark
+    my @hintchars = split //, $question->{hint};
+    my $charpos;
+    while (!defined $charpos) {
+        my $randpos = int rand length $question->{hint};
+        next if $hintchars[$randpos] ne '?';
+        $charpos = $randpos;
     }
+
+    $hintchars[$charpos] = (split //, $question->{answer})[$charpos];
     $question->{hints}++;
     return $question->{hint} = join '', @hintchars;
 }
