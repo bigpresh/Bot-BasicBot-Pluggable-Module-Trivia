@@ -118,7 +118,7 @@ sub format_response {
         started  => 'OK, trivia game will start in a moment...',
         newquestion => 'Question %id% : %question%',
         hint => "Question %id% : %question%\nHint %hintnum% : %hint%",
-        congrats => 'Congratulations %who%, the answer was indeed %answer%!'
+        correct => 'Congratulations %who%, the answer was indeed %answer%!'
                   . ' You now have %newscore% points.',
         questiontimeout => 'Bad luck, nobody got it!  It was %answer%',
         already_playing => 'There is already a game in progress!',
