@@ -143,6 +143,7 @@ sub tick {
         $game->{last_action} ||= time;
         next game if time - $game->{last_action} <= $timeout;
 
+        warn "OK, time to take an action, current status $game->{status}";
         # Map current state to method to call to progress
         my $action = {
             noquestion => 'ask_question',
@@ -159,7 +160,7 @@ sub ask_question {
     my $question = $self->pick_question;
 
     $game->{current_question} = $question;
-    $game->{state} = 'waiting';
+    $game->{status} = 'waiting';
     $self->say(
         channel => $game->{channel},
         body => $self->format_response(
