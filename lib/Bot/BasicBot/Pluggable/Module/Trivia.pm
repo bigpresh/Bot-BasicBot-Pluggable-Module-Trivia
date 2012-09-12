@@ -67,7 +67,7 @@ sub said {
     my $game = $games{ $mess->{channel} };
     return unless $game && $game->{status} eq 'waiting';
 
-    my $answer = $game->{answer};
+    my $answer = $game->{current_question}{answer};
     my $guess  = lc $mess->{body};
     $guess =~ s/^\s+|\s+$//g;
 
