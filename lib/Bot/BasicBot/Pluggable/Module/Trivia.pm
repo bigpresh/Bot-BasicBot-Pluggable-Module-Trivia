@@ -35,6 +35,10 @@ The bot responds to certain in-channel commands:
 
 Starts a trivia quiz in this channel
 
+=item C<!stop>
+
+Stops a currently-running trivia quiz in this channel.
+
 =back
 
 When a game is in progress, the first person to say the answer (as a normal
@@ -60,6 +64,15 @@ sub said {
             status  => 'noquestion'
         };
         return $self->format_response('started', $mess);
+    }
+
+    if ($mess->{body} =~ /^!stop/) {
+        if (exists $games{ $mess->{channel} }) {
+            delete $games{ $mess->{channel} };
+            return $self->format_response('game_stopped', $mess);
+        } else {
+            return $self->format_response('no_game_to_stop', $mess);
+        }
     }
 
     # If there's a game in progress, this could be someone guessing an answer -
@@ -122,6 +135,8 @@ sub format_response {
                   . ' You now have %newscore% points.',
         questiontimeout => 'Bad luck, nobody got it!  It was %answer%',
         already_playing => 'There is already a game in progress!',
+        game_stopped => 'OK, game stopped',
+        no_game_to_stop => 'No game is in progress!',
     );
     my $response = $responses{$response_name}
         or return "ERROR: unknown response name $response_name requested!";
