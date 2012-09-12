@@ -158,7 +158,7 @@ sub ask_question {
     my ($self, $game) = @_;
 
     my $question = $self->pick_question;
-
+    $question->{hints} = 0;
     $game->{current_question} = $question;
     $game->{status} = 'waiting';
     $self->say(
