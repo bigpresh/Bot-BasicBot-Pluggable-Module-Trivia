@@ -51,7 +51,7 @@ sub said {
 
     if ($mess->{body} =~ /^!trivia/) {
         if (exists $games{ $mess->{channel} }) {
-            return "There's already a game running, silly.";
+            return $self->format_msg('already_playing', $mess);
         }
 
         # OK, initialise an empty game and ask a question
@@ -121,6 +121,7 @@ sub format_response {
         congrats => 'Congratulations %who%, the answer was indeed %answer%!'
                   . ' You now have %newscore% points.',
         questiontimeout => 'Bad luck, nobody got it!  It was %answer%',
+        already_playing => 'There is already a game in progress!',
     );
     my $response = $responses{$response_name}
         or return "ERROR: unknown response name $response_name requested!";
