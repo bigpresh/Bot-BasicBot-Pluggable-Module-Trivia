@@ -59,7 +59,6 @@ sub said {
             channel => $mess->{channel},
             status  => 'noquestion'
         };
-        return "OK, let's play us some trivia - stand by!";
         return $self->format_msg('started', $mess);
     }
 
