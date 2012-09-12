@@ -245,11 +245,24 @@ sub pick_question {
     my ($self) = @_;
 
     # FIXME: implement.
-    return {
-        id => 42,
-        question => "Who wrote this?",
-        answer => "Dave",
-    };
+    my @questions = (
+        {
+            id => 42,
+            question => "Who wrote this?",
+            answer => "Dave",
+        },
+        {
+            id => 43,
+            question => "Who is Dave?",
+            answer => "Some big dude",
+        },
+        {
+            id => 44,
+            question => "What animal rules?",
+            answer => "a badger",
+        },
+    );
+    return $questions[ int rand @questions ];
 }
 
             
