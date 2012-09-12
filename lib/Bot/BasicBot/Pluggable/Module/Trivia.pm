@@ -141,8 +141,10 @@ sub tick {
     for my $game (values %games) {
         my $timeout = $self->timeout_for_status($game->{status});
         $game->{last_action} ||= time;
+        warn "Checking if it's time to do something for this game";
         next game if time - $game->{last_action} >= $timeout;
-        
+        warn "OK, need to do something - game status is " . $game->{status};
+
         # Map current state to method to call to progress
         my $action = {
             noquestion => 'ask_question',
