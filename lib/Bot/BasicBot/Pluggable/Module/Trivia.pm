@@ -51,7 +51,7 @@ sub said {
 
     if ($mess->{body} =~ /^!trivia/) {
         if (exists $games{ $mess->{channel} }) {
-            return $self->format_msg('already_playing', $mess);
+            return $self->format_response('already_playing', $mess);
         }
 
         # OK, initialise an empty game and ask a question
@@ -59,7 +59,7 @@ sub said {
             channel => $mess->{channel},
             status  => 'noquestion'
         };
-        return $self->format_msg('started', $mess);
+        return $self->format_response('started', $mess);
     }
 
     # If there's a game in progress, this could be someone guessing an answer -
